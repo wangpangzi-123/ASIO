@@ -299,5 +299,20 @@ int send_data_by_write()
 
 std::string read_from_socket(asio::ip::tcp::socket& sock)
 {
-	return NULL;
+	const unsigned char MESSAGE_SIZE = 7;
+	char message_buf[MESSAGE_SIZE];
+	size_t send_msg_len = 0;
+	while (send_msg_len != MESSAGE_SIZE)
+	{
+		send_msg_len += sock.read_some(asio::buffer(message_buf + send_msg_len, 
+									                MESSAGE_SIZE - send_msg_len));
+	}
+
+
+	return std::string(message_buf, send_msg_len);
+}
+
+int read_data_by_read_some()
+{
+
 }
